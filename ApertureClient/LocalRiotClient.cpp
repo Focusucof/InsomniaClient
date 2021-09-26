@@ -74,6 +74,70 @@ std::vector<std::string> LocalRiotClient::parseLockFile() {
 		array.push_back(temp);
 	}
 	
+	/*
+	* array[0] = Riot
+	* array[1] = Client
+	* array[2] = pid
+	* array[3] = port
+	* array[4] = password
+	* array[5] = protocol
+	*/
 	return array;
+
+}
+
+std::string LocalRiotClient::getCredentials() {
+
+	std::vector<std::string> lockfileContents = LocalRiotClient::parseLockFile();
+	std::string auth = "riot:" + lockfileContents[4]; // riot:{lockfile password}
+
+	macaron::Base64 base64;
+	std::string b64auth = base64.Encode(auth);
+
+	std::string authstr = "Authorization: Basic " + b64auth;
+	const char* authcstr = authstr.c_str();
+
+	std::string url = "https://127.0.0.1:" + lockfileContents[3] + "/entitlements/v1/token";
+	const char* urlcstr = url.c_str();
+
+	curl_easy_setopt(curl, CURLOPT_URL, urlcstr);
+
+	struct curl_slist* headers = NULL;
+	headers = curl_slist_append(headers, authcstr);
+	//headers = curl_slist_append(headers, "X-Riot-ClientVersion: release-03.06-shipping-8-610061");
+
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // Ignore self-signed cert
+
+	std::string response;
+	std::string header;
+
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+	curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header);
+
+	curl_easy_perform(curl);
+	std::cout << response;
+
+
+	
+	/*if(curl) {
+
+		curl_easy_setopt(curl, CURLOPT_URL, "localhost:3000");
+
+		std::string response;
+		std::string header;
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+		curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header);
+
+		curl_easy_perform(curl);
+
+		std::cout << "A" << header << std::endl;
+		std::cout << "B" << response << std::endl;
+
+	}*/
+
+	return response;
 
 }

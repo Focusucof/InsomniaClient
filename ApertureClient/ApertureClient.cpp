@@ -17,8 +17,8 @@ int main()
 
     LocalRiotClient* client = new LocalRiotClient();
 
-    std::vector<std::string> lockfileContents = client->parseLockFile();
-    
+    std::string auth = client->getCredentials();
+    std::cout << auth;
 
     delete client;
 }

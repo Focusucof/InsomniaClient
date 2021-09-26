@@ -29,6 +29,9 @@
     <ClInclude Include="LocalRiotClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="base64encode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" />

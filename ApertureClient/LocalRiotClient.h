@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "base64encode.h"
 
 struct lockfileContents {
 	std::string raw;
@@ -24,6 +25,7 @@ class LocalRiotClient {
 	public:
 		bool bIsGameOpen();
 		std::vector<std::string> parseLockFile();
+		std::string getCredentials();
 
 
 	private:

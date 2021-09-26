@@ -143,6 +143,7 @@
     <ClCompile Include="LocalRiotClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base64encode.h" />
     <ClInclude Include="httplib.h" />
     <ClInclude Include="LocalRiotClient.h" />
   </ItemGroup>
