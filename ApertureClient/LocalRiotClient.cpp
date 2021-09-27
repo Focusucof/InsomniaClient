@@ -86,7 +86,7 @@ std::vector<std::string> LocalRiotClient::parseLockFile() {
 
 }
 
-std::string LocalRiotClient::getCredentials() {
+std::vector<std::string> LocalRiotClient::getCredentials() {
 
 	std::vector<std::string> lockfileContents = LocalRiotClient::parseLockFile();
 	std::string auth = "riot:" + lockfileContents[4]; // riot:{lockfile password}
@@ -117,27 +117,18 @@ std::string LocalRiotClient::getCredentials() {
 	curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header);
 
 	curl_easy_perform(curl);
-	std::cout << response;
 
+	nlohmann::json jobj = nlohmann::json::parse(response);
 
-	
-	/*if(curl) {
+	std::string accessToken = jobj.value("accessToken", "");
+	std::string entitlementToken = jobj.value("token", "");
+	std::string puuid = jobj.value("subject", "");
 
-		curl_easy_setopt(curl, CURLOPT_URL, "localhost:3000");
+	std::vector<std::string> userDetails;
+	userDetails.push_back(accessToken);
+	userDetails.push_back(entitlementToken);
+	userDetails.push_back(puuid);
 
-		std::string response;
-		std::string header;
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-		curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header);
-
-		curl_easy_perform(curl);
-
-		std::cout << "A" << header << std::endl;
-		std::cout << "B" << response << std::endl;
-
-	}*/
-
-	return response;
+	return userDetails;
 
 }

@@ -17,8 +17,8 @@ int main()
 
     LocalRiotClient* client = new LocalRiotClient();
 
-    std::string auth = client->getCredentials();
-    std::cout << auth;
+    std::vector<std::string> auth = client->getCredentials();
+    //std::cout << auth;
 
     delete client;
 }

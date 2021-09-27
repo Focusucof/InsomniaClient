@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="base64encode.h" />
     <ClInclude Include="httplib.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="LocalRiotClient.h" />
   </ItemGroup>
   <ItemGroup>
