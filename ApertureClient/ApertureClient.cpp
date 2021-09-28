@@ -33,7 +33,6 @@ int main()
         CURL* curl;
         struct curl_slist* headers = NULL;
 
-
         curl = curl_easy_init();
         std::string str = "https://glz-na-1.na.a.pvp.net/parties/v1/players/" + auth[2];
         const char* url = str.c_str();
@@ -49,11 +48,13 @@ int main()
 
         str = "X-Riot-ClientPlatform: ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9";
         const char* clientPlatform = str.c_str();
-        headers = curl_slist_append(headers, "X-Riot-ClientPlatform: ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9");
+        headers = curl_slist_append(headers, clientPlatform);
 
         str = "X-Riot-ClientVersion: " + clientVersion;
         const char* version = str.c_str();
         headers = curl_slist_append(headers, version);
+
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
         std::string response;
 
@@ -62,7 +63,12 @@ int main()
 
         curl_easy_perform(curl);
 
-        std::cout << response;
+        nlohmann::json resp = nlohmann::json::parse(response);
+        std::string partyID = resp.value("CurrentPartyID", "");
+
+        std::cout << partyID;
+
+        delete client;
 
     });
 
