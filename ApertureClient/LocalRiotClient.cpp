@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "LocalRiotClient.h"
-#include <stdlib.h>
 #include <sstream>
 #include <algorithm>
 
@@ -104,7 +103,6 @@ std::vector<std::string> LocalRiotClient::getCredentials() {
 
 	struct curl_slist* headers = NULL;
 	headers = curl_slist_append(headers, authcstr);
-	//headers = curl_slist_append(headers, "X-Riot-ClientVersion: release-03.06-shipping-8-610061");
 
 	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // Ignore self-signed cert
@@ -117,6 +115,7 @@ std::vector<std::string> LocalRiotClient::getCredentials() {
 	curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header);
 
 	curl_easy_perform(curl);
+	curl_slist_free_all(headers);
 
 	nlohmann::json jobj = nlohmann::json::parse(response);
 

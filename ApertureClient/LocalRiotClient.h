@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <stdlib.h>
 #include "base64encode.h"
 #include "json.h"
 
@@ -28,8 +29,8 @@ class LocalRiotClient {
 		std::vector<std::string> parseLockFile();
 		std::vector<std::string> getCredentials();
 
-
 	private:
 		CURL* curl;
 
 };
+
