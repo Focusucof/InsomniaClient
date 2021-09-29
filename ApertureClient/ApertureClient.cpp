@@ -30,6 +30,8 @@ int main()
         LocalRiotClient* client = new LocalRiotClient();
         std::vector<std::string> auth = client->getCredentials();
 
+        std::string partyID;
+
         CURL* curl;
         struct curl_slist* headers = NULL;
 
@@ -64,9 +66,23 @@ int main()
         curl_easy_perform(curl);
 
         nlohmann::json resp = nlohmann::json::parse(response);
-        std::string partyID = resp.value("CurrentPartyID", "");
+        partyID = resp.value("CurrentPartyID", "");
 
-        std::cout << partyID;
+        // make custom game post request
+        str = "https://glz-na-1.na.a.pvp.net/parties/v1/parties/" + partyID + "/makecustomgame";
+        const char* customgameURL = str.c_str();
+        curl_easy_setopt(curl, CURLOPT_URL, customgameURL);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "");
+
+        curl_easy_perform(curl);
+
+        // make party open
+        str = "https://glz-na-1.na.a.pvp.net/parties/v1/parties/" + partyID + "/accessibility";
+        const char* openpartyURL = str.c_str();
+        curl_easy_setopt(curl, CURLOPT_URL, openpartyURL);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "{\"Accessibility\": \"OPEN\"}");
+
+        curl_easy_perform(curl);
 
         delete client;
 
