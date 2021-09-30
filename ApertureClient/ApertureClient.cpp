@@ -157,8 +157,8 @@ int main()
 
 "button{\r\n"
 "position: absolute;\r\n"
-"left: 50 %;\r\n"
-"top: 105 %;\r\n"
+"left: 50%;\r\n"
+"top: 105%;\r\n"
 "-webkit-transform: translate(-50%, -50%);\r\n"
 "transform: translate(-50%, -50%);\r\n"
 "}\r\n"
