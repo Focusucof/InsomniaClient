@@ -24,7 +24,7 @@ int main()
     /**************************************************************************/
 
     LocalRiotClient* client = new LocalRiotClient();
-    if(!client->bIsGameOpen()) {
+    if(client->bIsGameOpen()) {
         std::cout << "\x1b[0\nmValorant is not currently running..." << std::endl;
         std::cout << "Press \x1b[96mENTER\x1b[0m to quit";
         system("pause >nul");
@@ -221,7 +221,11 @@ int main()
 
     });
 
-    app.Get("/party/v1/join/:id", [](const httplib::Request&, httplib::Response& res) {
+    app.Get(R"(/party/v1/join/([a-f0-9\\-]+))", [&](const httplib::Request& req, httplib::Response& res) {
+
+        auto partyID = req.matches[1];
+        res.set_content(partyID, "text/text");
+        std::cout << partyID;
 
     });
 
