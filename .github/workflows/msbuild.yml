@@ -42,7 +42,7 @@ jobs:
         # Specify the full SHA-1 hash of a Git commit (not a branch name, nor a tag!) that establishes which version of vcpkg needs to be used. When using vcpkg as a Git submodule, this input is *not* needed as implicitly specified by the submodule.
         #vcpkgGitCommitId: # optional
         # 
-        # vcpkgArguments: # optional, default is 
+        vcpkgArguments: install curl:x64-windows-static
         # 
         #vcpkgDirectory: # optional, default is ${{ github.workspace }}/vcpkg
         # Specify entries to append to the .artifactignore file. This file specifies which directory to ignore or to include by the Cache task. For more info: https://docs.microsoft.com/en-us/azure/devops/artifacts/reference/artifactignore?view=azure-devops . The file is created if not already existing.
