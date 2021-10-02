@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ApertureClient.cpp">
+    <ClCompile Include="LocalRiotClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LocalRiotClient.cpp">
+    <ClCompile Include="InsomniaClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

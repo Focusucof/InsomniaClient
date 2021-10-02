@@ -2,6 +2,9 @@
 #include "httplib.h"
 #include "LocalRiotClient.h"
 
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
 std::string clientVersion = "release-03.06-shipping-8-610061";
 
 size_t writef(void* ptr, size_t size, size_t nmemb, std::string* data) {
@@ -11,9 +14,13 @@ size_t writef(void* ptr, size_t size, size_t nmemb, std::string* data) {
 
 int main()
 {
+    // For text colouring
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 13);
+
     /**********************************HEADER**********************************/
     std::cout
-        << "\x1b[95m ___                                 _       " << std::endl
+        << " ___                                 _       " << std::endl
         << "|_ _|_ __  ___  ___  _ __ ___  _ __ (_) __ _ " << std::endl
         << " | || '_ \\/ __|/ _ \\| '_ ` _ \\| '_ \\| |/ _` |" << std::endl
         << " | || | | \\__ \\ (_) | | | | | | | | | | (_| |" << std::endl
@@ -22,8 +29,13 @@ int main()
 
     LocalRiotClient* client = new LocalRiotClient();
     if(!client->bIsGameOpen()) {
-        std::cout << "\x1b[0\nmValorant is not currently running..." << std::endl;
-        std::cout << "Press \x1b[96mENTER\x1b[0m to quit";
+        SetConsoleTextAttribute(hConsole, 7);
+        std::cout << "Valorant is not currently running..." << std::endl;
+        std::cout << "Press ";
+        SetConsoleTextAttribute(hConsole, 11);
+        std::cout << "ENTER ";
+        SetConsoleTextAttribute(hConsole, 7);
+        std::cout << "to quit";
         system("pause >nul");
         delete client;
         return 0;
@@ -357,7 +369,9 @@ int main()
 
     });
 
-    std::cout << "\x1b[96mApp running on port 1337\x1b[0m";
+    SetConsoleTextAttribute(hConsole, 11);
+    std::cout << "App running on port 1337";
+    SetConsoleTextAttribute(hConsole, 7);
     app.listen("127.0.0.1", 1337);
 
 }
