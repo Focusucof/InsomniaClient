@@ -24,6 +24,7 @@
     <ProjectGuid>{a685ab9b-47d6-4fa4-866e-210886ac4a97}</ProjectGuid>
     <RootNamespace>ApertureClient</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>InsomniaClient</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,7 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ApertureClient.cpp" />
+    <ClCompile Include="InsomniaClient.cpp" />
     <ClCompile Include="LocalRiotClient.cpp" />
   </ItemGroup>
   <ItemGroup>
