@@ -153,9 +153,16 @@
     <ClInclude Include="httplib.h" />
     <ClInclude Include="json.h" />
     <ClInclude Include="LocalRiotClient.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\aperture.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="InsomniaClient.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
