@@ -28,12 +28,14 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
     
-    - name: Run vcpkg
-      uses: lukka/run-vcpkg@v4
-      with:
-        vcpkgArguments: 'curl'
-        vcpkgDirectory: '${{env.GITHUB_WORKSPACE}}/vcpkg'
-        vcpkgTriplet: 'x64-windows-static'
+    - name: Installing vcpkg (windows)
+      run: |
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 2020.01
+        .\bootstrap-vcpkg.bat
+        .\vcpkg.exe install curl:x64-windows-static
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
