@@ -24,7 +24,7 @@ int main()
     /**************************************************************************/
 
     LocalRiotClient* client = new LocalRiotClient();
-    if(client->bIsGameOpen()) {
+    if(!client->bIsGameOpen()) {
         std::cout << "\x1b[0\nmValorant is not currently running..." << std::endl;
         std::cout << "Press \x1b[96mENTER\x1b[0m to quit";
         system("pause >nul");
@@ -223,9 +223,140 @@ int main()
 
     app.Get(R"(/party/v1/join/([a-f0-9\\-]+))", [&](const httplib::Request& req, httplib::Response& res) {
 
-        auto partyID = req.matches[1];
-        res.set_content(partyID, "text/text");
-        std::cout << partyID;
+        std::string partyID = req.matches[1];
+        
+        LocalRiotClient* client = new LocalRiotClient();
+        std::vector<std::string> auth = client->getCredentials();
+
+        CURL* curl;
+        struct curl_slist* headers = NULL;
+
+        curl = curl_easy_init();
+        std::string str = "https://glz-na-1.na.a.pvp.net/parties/v1/players/" + auth[2] + "/joinparty/" + partyID;
+        const char* url = str.c_str();
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+
+        str = "Authorization: Bearer " + auth[0];
+        const char* accessToken = str.c_str();
+        headers = curl_slist_append(headers, accessToken);
+
+        str = "X-Riot-Entitlements-JWT: " + auth[1];
+        const char* entitlement = str.c_str();
+        headers = curl_slist_append(headers, entitlement);
+
+        str = "X-Riot-ClientPlatform: ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9";
+        const char* clientPlatform = str.c_str();
+        headers = curl_slist_append(headers, clientPlatform);
+
+        str = "X-Riot-ClientVersion: " + clientVersion;
+        const char* version = str.c_str();
+        headers = curl_slist_append(headers, version);
+
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+        std::string response;
+
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writef);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "");
+
+        curl_easy_perform(curl);
+
+        std::string returnHTML =
+            std::string("<!DOCTYPE html>\r\n"
+                        "<html>\r\n"
+                        "<head>\r\n"
+                        "<title>Insomnia</title>\r\n"
+                        "<link rel=\"preconnect\" href=\"https:\/\/fonts.gstatic.com\">\r\n"
+                        "<link href=\"https:\/\/fonts.googleapis.com/css2?family=Raleway&display=swap\" rel=\"stylesheet\">\r\n"
+                        "<link rel=\"icon\" href=\"https:\/\/raw.githubusercontent.com/Focusucof/InsomniaClient/headless/resources/favicon.ico\">\r\n"
+                        "</head>\r\n"
+                        "<body>\r\n"
+                        "<div class=\"main\">\r\n"
+                        "<pre>\r\n"
+                        " ___                                 _       \r\n"
+                        "|_ _|_ __  ___  ___  _ __ ___  _ __ (_) __ _ \r\n"
+                        " | || '_ \\/ __|/ _ \\| '_ ` _ \\| '_ \\| |/ _` |\r\n"
+                        " | || | | \\__ \\ (_) | | | | | | | | | | (_| |\r\n"
+                        "|___|_| |_|___/\\___/|_| |_| |_|_| |_|_|\\__,_|\r\n"
+                        "</pre>\r\n"
+                        "<p>You have successfully joined the party</p>\r\n"
+                        "<p style=\"color: aqua; \">You may close this window</p>\r\n"
+                        "</div>\r\n"
+
+                        "<style>\r\n"
+                        "*{\r\n"
+                        "font-family: 'Raleway', sans-serif;\r\n"
+                        "background-color: #18191c;\r\n"
+                        "color: white;\r\n"
+                        "}\r\n"
+                        "p{\r\n"
+                        "text-align: center;\r\n"
+                        "}\r\n"
+                        "h3{\r\n"
+                        "text-align: center;\r\n"
+                        "}\r\n"
+                        "body{\r\n"
+                        "position: absolute;\r\n"
+                        "left: 50%;\r\n"
+                        "top: 40%;\r\n"
+                        "-webkit-transform: translate(-50%, -50%);\r\n"
+                        "transform: translate(-50%, -50%);\r\n"
+                        "}\r\n"
+
+                        "button{\r\n"
+                        "position: absolute;\r\n"
+                        "left: 50%;\r\n"
+                        "top: 105%;\r\n"
+                        "-webkit-transform: translate(-50%, -50%);\r\n"
+                        "transform: translate(-50%, -50%);\r\n"
+                        "}\r\n"
+
+                        ".hover{\r\n"
+                        "/* font */\r\n"
+                        "color: white;\r\n"
+                        "font-size: 20px;\r\n"
+                        "font-family: 'Raleway';\r\n"
+                        "/* remove blue underline */\r\n"
+                        "text-decoration: none;\r\n"
+                        "/* border */\r\n"
+                        "border: 2px solid #18191c;\r\n"
+                        "border-radius: 20px;\r\n"
+                        "/* transitions */\r\n"
+                        "transition-duration: .2s;\r\n"
+                        "-webkit-transition-duration: .2s;\r\n"
+                        "-moz-transition-duration: .2s;\r\n"
+                        "/* other */\r\n"
+                        "background-color: #18191c;\r\n"
+                        "padding: 4px 30px;\r\n"
+                        "}\r\n"
+                        ".hover:hover{\r\n"
+                        "/* update text color and background color */\r\n"
+                        "color: #18191c;\r\n"
+                        "background-color:white;\r\n"
+                        "/* transitions */\r\n"
+                        "transition-duration: .2s;\r\n"
+                        "-webkit-transition-duration: .11s;\r\n"
+                        "-moz-transition-duration: .2s;\r\n"
+                        "}\r\n"
+
+                        ".hover:active{\r\n"
+                        "background-color: cyan;\r\n"
+                        "}\r\n"
+
+                        "pre{\r\n"
+                        "font-family: Consolas;\r\n"
+                        "font-size: 20pt;\r\n"
+                        "color: #f45397;\r\n"
+                        "}\r\n"
+                        "</style>\r\n"
+                        "</body>\r\n"
+                        "</html>\r\n"
+                        );
+
+        res.set_content(returnHTML, "text/html");
+
+        delete client;
 
     });
 
