@@ -15,7 +15,7 @@ size_t writef(void* ptr, size_t size, size_t nmemb, std::string* data) {
 int main()
 {
     /**********************************HEADER**********************************/
-    std::cout 
+    std::cout
         << "\x1b[95m ___                                 _       " << std::endl
         << "|_ _|_ __  ___  ___  _ __ ___  _ __ (_) __ _ " << std::endl
         << " | || '_ \\/ __|/ _ \\| '_ ` _ \\| '_ \\| |/ _` |" << std::endl
@@ -224,7 +224,7 @@ int main()
     app.Get(R"(/party/v1/join/([a-f0-9\\-]+))", [&](const httplib::Request& req, httplib::Response& res) {
 
         std::string partyID = req.matches[1];
-        
+
         LocalRiotClient* client = new LocalRiotClient();
         std::vector<std::string> auth = client->getCredentials();
 
@@ -352,7 +352,7 @@ int main()
                         "</style>\r\n"
                         "</body>\r\n"
                         "</html>\r\n"
-                        );
+            );
 
         res.set_content(returnHTML, "text/html");
 
@@ -362,21 +362,4 @@ int main()
 
     app.listen("127.0.0.1", 1337);
 
-    //LocalRiotClient* client = new LocalRiotClient();
-
-    //std::vector<std::string> auth = client->getCredentials();
-    ////std::cout << auth[0];
-
-    //delete client;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
