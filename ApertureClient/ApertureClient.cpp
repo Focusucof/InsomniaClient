@@ -101,7 +101,7 @@ int main()
                         "<title>Insomnia</title>\r\n"
                         "<link rel=\"preconnect\" href=\"https:\/\/fonts.gstatic.com\">\r\n"
                         "<link href=\"https:\/\/fonts.googleapis.com/css2?family=Raleway&display=swap\" rel=\"stylesheet\">\r\n"
-                        "<link rel=\"icon\" href=\"https:\/\/raw.githubusercontent.com/Focusucof/InsomniaClient/headless/resources/favicon.ico\">\r\n"
+                        "<link rel=\"icon\" href=\"https://raw.githubusercontent.com/Focusucof/ApertureClient/master/assets/aperture.png\">\r\n"
                         "</head>\r\n"
                         "<body>\r\n"
                         "<div class=\"main\">\r\n"
@@ -269,7 +269,7 @@ int main()
                         "<title>Insomnia</title>\r\n"
                         "<link rel=\"preconnect\" href=\"https:\/\/fonts.gstatic.com\">\r\n"
                         "<link href=\"https:\/\/fonts.googleapis.com/css2?family=Raleway&display=swap\" rel=\"stylesheet\">\r\n"
-                        "<link rel=\"icon\" href=\"https:\/\/raw.githubusercontent.com/Focusucof/InsomniaClient/headless/resources/favicon.ico\">\r\n"
+                        "<link rel=\"icon\" href=\"https://raw.githubusercontent.com/Focusucof/ApertureClient/master/assets/aperture.png\">\r\n"
                         "</head>\r\n"
                         "<body>\r\n"
                         "<div class=\"main\">\r\n"
@@ -360,6 +360,7 @@ int main()
 
     });
 
+    std::cout << "\x1b[96mApp running on port 1337\x1b[0m";
     app.listen("127.0.0.1", 1337);
 
 }
