@@ -43,13 +43,13 @@
     <None Include="..\LICENSE" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\assets\aperture.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="InsomniaClient.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="aperture.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

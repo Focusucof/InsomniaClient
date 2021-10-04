@@ -6,17 +6,10 @@
 #include <fstream>
 #include <vector>
 #include <stdlib.h>
+#include <sstream>
+#include <algorithm>
 #include "base64encode.h"
 #include "json.h"
-
-struct lockfileContents {
-	std::string raw;
-	std::string name;
-	std::string pid;
-	std::string port;
-	std::string password;
-	std::string protocol;
-};
 
 class LocalRiotClient {
 

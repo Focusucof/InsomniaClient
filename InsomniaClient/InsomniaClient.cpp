@@ -1,4 +1,3 @@
-#include <iostream>
 #include "httplib.h"
 #include "LocalRiotClient.h"
 
@@ -12,19 +11,18 @@ size_t writef(void* ptr, size_t size, size_t nmemb, std::string* data) {
     return size * nmemb;
 }
 
-int main()
-{
+int main() {
     // For text colouring
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 13);
 
     /**********************************HEADER**********************************/
     std::cout
-        << " ___                                 _       " << std::endl
-        << "|_ _|_ __  ___  ___  _ __ ___  _ __ (_) __ _ " << std::endl
-        << " | || '_ \\/ __|/ _ \\| '_ ` _ \\| '_ \\| |/ _` |" << std::endl
-        << " | || | | \\__ \\ (_) | | | | | | | | | | (_| |" << std::endl
-        << "|___|_| |_|___/\\___/|_| |_| |_|_| |_|_|\\__,_|" << std::endl;
+        << " ___                                 _       "      << std::endl
+        << "|_ _|_ __  ___  ___  _ __ ___  _ __ (_) __ _ "      << std::endl
+        << " | || '_ \\/ __|/ _ \\| '_ ` _ \\| '_ \\| |/ _` |"  << std::endl
+        << " | || | | \\__ \\ (_) | | | | | | | | | | (_| |"    << std::endl
+        << "|___|_| |_|___/\\___/|_| |_| |_|_| |_|_|\\__,_|"    << std::endl;
     /**************************************************************************/
 
     LocalRiotClient* client = new LocalRiotClient();
@@ -48,6 +46,7 @@ int main()
 
         LocalRiotClient* client = new LocalRiotClient();
         std::vector<std::string> auth = client->getCredentials();
+        delete client;
 
         std::string partyID;
 
@@ -102,6 +101,7 @@ int main()
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "{\"Accessibility\": \"OPEN\"}");
 
         curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
 
         std::string returnHTML =
             std::string("<!DOCTYPE html>\r\n"
@@ -225,8 +225,6 @@ int main()
                         );
 
         res.set_content(returnHTML, "text/html");
-
-        delete client;
 
     });
 

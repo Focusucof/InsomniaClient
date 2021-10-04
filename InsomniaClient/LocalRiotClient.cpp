@@ -1,8 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-
 #include "LocalRiotClient.h"
-#include <sstream>
-#include <algorithm>
 
 size_t writeFunction(void* ptr, size_t size, size_t nmemb, std::string* data) {
 	data->append((char*)ptr, size * nmemb);
@@ -12,23 +9,6 @@ size_t writeFunction(void* ptr, size_t size, size_t nmemb, std::string* data) {
 LocalRiotClient::LocalRiotClient() {
 
 	curl = curl_easy_init();
-	
-	/*if(curl) {
-
-		curl_easy_setopt(curl, CURLOPT_URL, "localhost:3000");
-
-		std::string response;
-		std::string header;
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-		curl_easy_setopt(curl, CURLOPT_HEADERDATA, &header);
-
-		curl_easy_perform(curl);
-
-		std::cout << "A" << header << std::endl;
-		std::cout << "B" << response << std::endl;
-
-	}*/
 
 }
 
