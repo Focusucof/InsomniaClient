@@ -79,6 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -145,24 +146,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="InsomniaClient.cpp" />
-    <ClCompile Include="LocalRiotClient.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="base64encode.h" />
-    <ClInclude Include="httplib.h" />
-    <ClInclude Include="json.h" />
-    <ClInclude Include="LocalRiotClient.h" />
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\LICENSE" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="InsomniaClient.rc" />
+    <Image Include="aperture.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="aperture.ico" />
+    <ClCompile Include="src\InsomniaClient.cpp" />
+    <ClCompile Include="src\LocalRiotClient.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\InsomniaClient.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\base64encode.h" />
+    <ClInclude Include="include\httplib.h" />
+    <ClInclude Include="include\json.h" />
+    <ClInclude Include="src\LocalRiotClient.h" />
+    <ClInclude Include="src\resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
