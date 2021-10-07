@@ -6,7 +6,7 @@
 |___|_| |_|___/\___/|_| |_| |_|_| |_|_|\__,_|
 </pre>
 
-# The Insomnia Client is a simple VALORANT party client used to organize custom games easily.
+## ***The Insomnia Client is a simple VALORANT party client used to organize custom games easily.***
 
 ## Features
 
