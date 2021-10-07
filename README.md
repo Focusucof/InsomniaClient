@@ -15,14 +15,6 @@
 - Full integration with the Insomnia 10 mans Discord
 - Single, statically linked binary
 
-
-## Dependencies
-
-- [libcurl](https://github.com/curl/curl)
-- [yhirose/cpp-httplib](https://github.com/yhirose/cpp-httplib)
-- [nlohmann/json](https://github.com/nlohmann/json)
-- [tomykaira/Base64.h](https://gist.github.com/tomykaira/f0fd86b6c73063283afe550bc5d77594)
-
 ## Installation
 
 1. Visit the releases page of this repository and download the latest release
@@ -54,3 +46,14 @@ The only external dependency is libcurl which can be install with vcpkg. The com
 ## Legal
 
 **This program isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.**
+
+## Third Party Dependencies
+
+### - [yhirose/cpp-httplib](https://github.com/yhirose/cpp-httplib)
+Copyright (c) 2021 Yuji Hirose. All rights reserved. License: MIT
+
+### - [nlohmann/json](https://github.com/nlohmann/json)
+Copyright (c) 2013-2019 Niels Lohmann. License: MIT
+
+### - [tomykaira/Base64.h](https://gist.github.com/tomykaira/f0fd86b6c73063283afe550bc5d77594)
+Copyright (c) 2016 tomykaira. License: MIT
