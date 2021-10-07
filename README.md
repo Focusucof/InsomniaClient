@@ -1,4 +1,4 @@
-<pre style="color:#b4009f; text-align:center;">
+<pre align=center">
  ___                                 _       
 |_ _|_ __  ___  ___  _ __ ___  _ __ (_) __ _ 
  | || '_ \/ __|/ _ \| '_ ` _ \| '_ \| |/ _` |
