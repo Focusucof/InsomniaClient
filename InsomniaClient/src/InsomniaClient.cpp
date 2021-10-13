@@ -38,7 +38,88 @@ int main() {
         delete client;
         return 0;
     }
+
+    // Initial POST data
+    std::string puuid;
+    std::string name;
+    int rankID;
+    /*******************/
+    
+    std::vector<std::string> auth = client->getCredentials();
     delete client;
+
+    puuid = auth[2];
+
+    CURL* curl = curl_easy_init();
+
+    struct curl_slist* headers = NULL;
+
+    std::string str = "https://pd.na.a.pvp.net/mmr/v1/players/" + auth[2] + "/competitiveupdates?startIndex=0&endIndex=1&queue=competitive";
+    const char* url = str.c_str();
+    curl_easy_setopt(curl, CURLOPT_URL, url);
+
+    str = "Authorization: Bearer " + auth[0];
+    const char* accessToken = str.c_str();
+    headers = curl_slist_append(headers, accessToken);
+
+    str = "X-Riot-Entitlements-JWT: " + auth[1];
+    const char* entitlement = str.c_str();
+    headers = curl_slist_append(headers, entitlement);
+
+    str = "X-Riot-ClientPlatform: ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9";
+    const char* clientPlatform = str.c_str();
+    headers = curl_slist_append(headers, clientPlatform);
+
+    str = "X-Riot-ClientVersion: " + clientVersion;
+    const char* version = str.c_str();
+    headers = curl_slist_append(headers, version);
+
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+    std::string response;
+
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writef);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+    curl_easy_perform(curl);
+
+    nlohmann::json resp = nlohmann::json::parse(response);
+    rankID = resp["Matches"][0]["TierAfterUpdate"];
+
+    curl_easy_setopt(curl, CURLOPT_URL, "https://pd.NA.a.pvp.net/name-service/v2/players");
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+    str = "[\r\n\"" + puuid + "\"\r\n]";
+    const char* nameBody = str.c_str();
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, nameBody);
+
+    std::string nameResponse;
+
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writef);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &nameResponse);
+
+    curl_easy_perform(curl);
+
+    nlohmann::json jsonResp = nlohmann::json::parse(nameResponse);
+
+    name = jsonResp[0]["GameName"];
+
+    headers = NULL;
+
+    /////////////////////////////////////////////////////////////////////////
+
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/"); // tentative until I find a hosting solution
+
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+    str = "{\n\t\"puuid\": \"" + puuid + "\",\n\t\"name\": \"" + name + "\",\n\t\"rankID\": " + std::to_string(rankID) + "\n }";
+    std::cout << str;
+    const char* postFields = str.c_str();
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postFields);
+
+    curl_easy_perform(curl);
+    curl_easy_cleanup(curl);
 
     httplib::Server app;
 
