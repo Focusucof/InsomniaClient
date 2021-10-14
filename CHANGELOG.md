@@ -1,3 +1,10 @@
+# v1.10
+
+## Features
+
+- in-game stats integration with the Discord server
+- assigns roles on the Discord based on your in-game rank
+
 # v1.01
 
 ## Bugfixes

@@ -57,3 +57,6 @@ Copyright (c) 2013-2019 Niels Lohmann. License: MIT
 
 ### - [tomykaira/Base64.h](https://gist.github.com/tomykaira/f0fd86b6c73063283afe550bc5d77594)
 Copyright (c) 2016 tomykaira. License: MIT
+
+### - [feathericons/feather](https://github.com/feathericons/feather)
+Copyright (c) 2013-2017 Cole Bemis. License: MIT
