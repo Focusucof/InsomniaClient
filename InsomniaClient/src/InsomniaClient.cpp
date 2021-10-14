@@ -108,13 +108,12 @@ int main() {
     /////////////////////////////////////////////////////////////////////////
 
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/"); // tentative until I find a hosting solution
+    curl_easy_setopt(curl, CURLOPT_URL, "https://insomnia-discordbot.herokuapp.com/"); // tentative until I find a hosting solution
 
     headers = curl_slist_append(headers, "Content-Type: application/json");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
     str = "{\n\t\"puuid\": \"" + puuid + "\",\n\t\"name\": \"" + name + "\",\n\t\"rankID\": " + std::to_string(rankID) + "\n }";
-    std::cout << str;
     const char* postFields = str.c_str();
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postFields);
 
@@ -473,11 +472,10 @@ int main() {
                         " | || | | \\__ \\ (_) | | | | | | | | | | (_| |\r\n"
                         "|___|_| |_|___/\\___/|_| |_| |_|_| |_|_|\\__,_|\r\n"
                         "</pre>\r\n"
-                        "<p>Type .link along with this ID to link your account</p>\r\n"
+                        "<p>Paste this into the #link channel in the Insomnia Discord</p>\r\n"
                         "<button class=\"hover\" onclick = \"copy()\">Copy</button>\r\n"
-                        "<h3 id=\"puuid\">") + puuid + std::string("</h3>\r\n"
+                        "<h3 id=\"puuid\"><code>.link ") + puuid + std::string("</code></h3>\r\n"
                         "</div>\r\n"
-
                         "<script>\r\n"
                         "function copy() {\r\n"
                         "if(window.getSelection) {\r\n"
@@ -499,7 +497,7 @@ int main() {
                         "document.execCommand(\"copy\");\r\n"
                         "} else if(window.getSelection) {\r\n"
                         "var range = document.createRange();\r\n"
-                        "range.selectNode(document.getElementById(\"partyID\"));\r\n"
+                        "range.selectNode(document.getElementById(\"puuid\"));\r\n"
                         "window.getSelection().addRange(range);\r\n"
                         "document.execCommand(\"copy\");\r\n"
                         "}\r\n"
